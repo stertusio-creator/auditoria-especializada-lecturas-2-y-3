@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Lección de Auditoría Especializada. Lectura 2 y Lectura 3. Profesor Sergio Tertusio.">
+<title>Auditoría Especializada · Profesor Sergio Tertusio</title>
+<style>
+  :root {
+    --bg: #f3eee4;
+    --bg-2: #e7dfd0;
+    --ink: #1b1612;
+    --muted: #5c5348;
+    --card: #fffdf8;
+    --line: #d9cebc;
+    --accent: #8c2e22;
+    --accent-2: #1f4a40;
+    --on-accent: #fff8f4;
+    --ok: #14543a;
+    --ok-bg: #e4f3eb;
+    --bad: #8c2e22;
+    --bad-bg: #fdecea;
+    --warn: #6b4e12;
+    --warn-bg: #f8efd8;
+    --shadow: 0 12px 32px rgba(48, 28, 12, 0.06);
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    --sans: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
+    --max: 760px;
+  }
+  html[data-theme="dark"] {
+    --bg: #12110f;
+    --bg-2: #1c1916;
+    --ink: #f4eee6;
+    --muted: #cbbba8;
+    --card: #221f1b;
+    --line: #3d352c;
+    --accent: #f0b09e;
+    --accent-2: #9ed8c8;
+    --on-accent: #1c100d;
+    --ok: #b7ecd2;
+    --ok-bg: #16332a;
+    --bad: #f3c2b8;
+    --bad-bg: #3c2420;
+    --warn: #f0d59a;
+    --warn-bg: #3a2e18;
+    --shadow: none;
+    color-scheme: dark;
+  }
+  html[data-theme="light"] { color-scheme: light; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; max-width: 100%; overflow-x: hidden; }
+  body {
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 1.06rem;
+    line-height: 1.55;
+  }
+  button, select { font-family: var(--sans); cursor: pointer; }
+  button { min-height: 44px; }
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px 14px;
+    padding: 12px 16px;
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(8px);
+  }
+  .brand { flex: 1 1 220px; min-width: 0; }
+  .brand strong {
+    display: block;
+    font-size: clamp(1.22rem, 3.1vw, 1.72rem);
+    line-height: 1.12;
+    letter-spacing: -0.025em;
+    font-weight: 750;
+  }
+  .brand span {
+    display: block;
+    margin-top: 2px;
+    color: var(--muted);
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .tools { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tools button, .btn, .opt, .binbtn {
+    border: 1px solid var(--line);
+    background: var(--card);
+    color: var(--ink);
+    border-radius: 4px;
+    padding: 10px 14px;
+    font-size: 0.92rem;
+  }
+  .tools button:hover, .btn:hover, .opt:hover, .binbtn:hover { border-color: var(--accent); }
+  .btn.primary, .tools button.primary {
+    background: var(--accent);
+    color: var(--on-accent);
+    border-color: var(--accent);
+  }
+  .btn.ghost { background: transparent; }
+  main { width: min(var(--max), 100%); margin: 0 auto; padding: 22px 16px 72px; }
+  main.wide { width: min(980px, 100%); }
+  .kicker {
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 8px;
+  }
+  h1 {
+    font-size: clamp(2.35rem, 8vw, 4.5rem);
+    line-height: 0.94;
+    letter-spacing: -0.035em;
+    font-weight: 750;
+    margin: 0 0 14px;
+  }
+  .lede { font-size: 1.15rem; max-width: 40rem; margin: 0 0 22px; }
+  h2 { font-size: 1.45rem; line-height: 1.2; margin: 1.4rem 0 0.45rem; letter-spacing: -0.02em; }
+  h3 { font-size: 1.08rem; margin: 0 0 0.35rem; line-height: 1.25; }
+  p { margin: 0.55rem 0; }
+  ul { margin: 0.4rem 0 0.8rem; padding-left: 1.15rem; }
+  li { margin: 0.28rem 0; }
+  .call {
+    margin: 1rem 0;
+    padding: 0.2rem 0 0.2rem 1rem;
+    border-left: 4px solid var(--accent);
+    font-size: 1.22rem;
+    line-height: 1.35;
+    color: var(--ink);
+  }
+  .note { color: var(--muted); font-size: 0.98rem; }
+  .choices, .cards, .duo { display: grid; gap: 12px; }
+  .choices { grid-template-columns: 1fr 1fr; margin-top: 8px; }
+  .choice, .card, .duo section, .mod, .panel {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    box-shadow: var(--shadow);
+  }
+  .choice {
+    text-align: left;
+    padding: 18px 16px 16px;
+    color: inherit;
+    width: 100%;
+  }
+  .choice em {
+    display: block;
+    font-style: normal;
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-2);
+    margin-bottom: 6px;
+  }
+  .choice strong { display: block; font-size: 1.28rem; letter-spacing: -0.02em; margin-bottom: 6px; }
+  .choice span { display: block; color: var(--muted); font-size: 0.98rem; }
+  .meta { margin-top: 10px; font-family: var(--sans); font-size: 0.82rem; color: var(--accent); }
+  .cards { grid-template-columns: 1fr; }
+  .card, .duo section, .panel { padding: 14px 14px 12px; }
+  .duo { grid-template-columns: 1fr 1fr; }
+  .duo h3 {
+    font-family: var(--sans);
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--on-accent);
+    background: var(--accent);
+    margin: -14px -14px 10px;
+    padding: 8px 12px;
+  }
+  html[data-theme="dark"] .duo h3 { color: #1c100d; }
+  .formula {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    align-items: baseline;
+    justify-content: space-between;
+    border: 1px solid var(--line);
+    background: var(--bg-2);
+    padding: 10px 12px;
+    margin: 8px 0;
+  }
+  .formula span { font-family: var(--sans); font-size: 0.85rem; color: var(--muted); }
+  .formula strong { font-weight: 650; }
+  .crumb { font-family: var(--sans); font-size: 0.82rem; color: var(--muted); margin-bottom: 6px; }
+  .modlist { display: grid; gap: 8px; margin: 14px 0 18px; }
+  .mod {
+    width: 100%;
+    text-align: left;
+    padding: 12px 12px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 10px;
+    align-items: start;
+    color: inherit;
+  }
+  .num {
+    font-family: var(--sans);
+    font-weight: 700;
+    width: 2rem;
+    height: 2rem;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--line);
+    background: var(--bg);
+  }
+  .mod small { display: block; color: var(--muted); font-family: var(--sans); font-size: 0.78rem; margin-top: 3px; }
+  .mod.done .num { background: var(--ok-bg); color: var(--ok); border-color: transparent; }
+  .activity, .qbox {
+    margin-top: 1.4rem;
+    padding-top: 0.2rem;
+    border-top: 1px solid var(--line);
+  }
+  .opts, .bins { display: grid; gap: 8px; margin: 10px 0; }
+  .opt, .binbtn { text-align: left; width: 100%; }
+  .opt.on, .binbtn.on { border-color: var(--accent); outline: 2px solid var(--accent); }
+  .opt.hit, .binbtn.hit { background: var(--ok-bg); border-color: var(--ok); }
+  .opt.miss, .binbtn.miss { background: var(--bad-bg); border-color: var(--bad); }
+  .opt:disabled, .binbtn:disabled, select:disabled { cursor: default; }
+  .row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
+    margin: 8px 0 12px;
+  }
+  select {
+    width: 100%;
+    min-height: 44px;
+    border: 1px solid var(--line);
+    background: var(--card);
+    color: var(--ink);
+    border-radius: 4px;
+    padding: 8px 10px;
+    font-size: 0.95rem;
+  }
+  .feedback, .warn {
+    padding: 12px 14px;
+    margin: 12px 0;
+    border-radius: 4px;
+  }
+  .feedback.good { background: var(--ok-bg); color: var(--ok); }
+  .feedback.bad { background: var(--bad-bg); color: var(--bad); }
+  .feedback p, .warn p { margin: 0.35rem 0 0; }
+  .warn { background: var(--warn-bg); color: var(--warn); }
+  .nav { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+  .score {
+    font-size: clamp(3rem, 12vw, 4.5rem);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    margin: 8px 0;
+  }
+  .miss { border-left: 3px solid var(--accent); padding-left: 10px; margin: 12px 0; }
+  .dialog-back {
+    position: fixed;
+    inset: 0;
+    background: rgba(18, 12, 8, 0.45);
+    display: grid;
+    place-items: end center;
+    padding: 16px;
+    z-index: 50;
+  }
+  .dialog-back[hidden] { display: none; }
+  .dialog {
+    width: min(460px, 100%);
+    background: var(--card);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    padding: 18px 16px;
+    margin-bottom: 8px;
+  }
+  .dialog h2 { margin-top: 0; }
+  .foot {
+    margin-top: 28px;
+    color: var(--muted);
+    font-size: 0.88rem;
+  }
+  @media (max-width: 760px) {
+    .choices, .duo { grid-template-columns: 1fr; }
+    h1 { font-size: clamp(2.15rem, 12vw, 3.2rem); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { scroll-behavior: auto !important; }
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <strong>Profesor Sergio Tertusio</strong>
+    <span>Auditoría Especializada</span>
+  </div>
+  <div class="tools">
+    <button type="button" data-act="go-cover">Menú inicial</button>
+    <button type="button" id="themeBtn" data-act="theme">Modo oscuro</button>
+    <button type="button" data-act="ask-reset">Reiniciar</button>
+  </div>
+</header>
+<main id="app"></main>
+<div id="dialog" class="dialog-back" hidden>
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlgTitle">
+    <h2 id="dlgTitle">¿Reiniciar el avance?</h2>
+    <p>Se borra el progreso de las dos lecturas, las actividades y los dos quizzes. El modo claro u oscuro se conserva.</p>
+    <div class="nav">
+      <button type="button" class="btn primary" data-act="do-reset">Sí, borrar avance</button>
+      <button type="button" class="btn" data-act="cancel-reset">Cancelar</button>
+    </div>
+  </div>
+</div>
+<script>
+const THEME_KEY = "ae-tertusio-tema";
+const DATA_KEY = "ae-tertusio-avance-lecturas-2-3";
+
+const READINGS = [
+  {
+    id: "l2",
+    tag: "Lectura 2",
+    title: "Tipos de auditoría: interna y externa",
+    blurb: "Qué cambia cuando quien audita pertenece a la empresa y cuando entra por un contrato. Ética, marco de referencia y casos que marcaron la profesión.",
+    objective: "Distinguir la auditoría interna de la externa, su objetivo y su alcance, y entender por qué la conducta ética sostiene el trabajo.",
+    modules: [
+      {
+        id: "l2m1",
+        title: "Para qué sirve auditar",
+        blocks: [
+          { t: "h", x: "Qué vas a poder explicar" },
+          { t: "p", x: "Esta lectura busca que distingas la auditoría interna de la externa, el objetivo y el enfoque de cada una, y la importancia de la conducta ética en la profesión." },
+          { t: "h", x: "La idea que ordena todo lo demás" },
+          { t: "p", x: "La lectura resume la auditoría así: el auditor obtiene evidencia suficiente y de calidad para verificar las afirmaciones de la gerencia, o de quien contrata el trabajo, de acuerdo con el marco de referencia que aplique. Después, eso se informa." },
+          { t: "call", x: "El fin no es «mirar y ya». Es poder sostener, con evidencia, lo que se encontró." },
+          { t: "p", x: "Cualquiera sea el enfoque, se trata de un trabajo de aseguramiento. Sirve para argumentar hallazgos, debilidades de control interno o errores materiales en la información financiera, y para atestiguar mediante el informe." },
+          { t: "p", x: "Por eso el auditor revisa los códigos de ética vigentes, el del auditor interno y el del externo. El trabajo se ejerce con criterio ético y de calidad. Personas ajenas al proceso pueden revisar si se cumplen las normas de calidad del IAASB, en el marco de las NIA." }
+        ],
+        activity: {
+          kind: "choice",
+          prompt: "¿Cuál frase recoge la definición de auditoría que usa esta lectura?",
+          options: [
+            "Obtener evidencia suficiente y de calidad, verificar las afirmaciones según el marco que corresponda e informar.",
+            "Reemplazar a la gerencia en la preparación de los estados financieros.",
+            "Imponer sanciones penales cuando aparece un error.",
+            "Revisar solo el código de ética, sin reunir evidencia."
+          ],
+          answer: 0,
+          why: "La lectura define la auditoría como evidencia suficiente y de calidad para verificar afirmaciones de la gerencia o de quien contrata, según el marco de referencia, y luego informar. El informe atestigua hallazgos, debilidades de control o errores materiales. No sustituye a la gerencia ni es una pena."
+        }
+      },
+      {
+        id: "l2m2",
+        title: "Interna y externa",
+        blocks: [
+          { t: "h", x: "Auditoría interna" },
+          { t: "p", x: "Según el Instituto de Auditores Internos (IIA, 2022), es una actividad independiente y objetiva de aseguramiento y consultoría. Está diseñada para generar valor y mejorar las operaciones. Ayuda a lograr los objetivos con un enfoque sistemático y disciplinado, al evaluar y mejorar la gestión de riesgos, el control y el gobierno." },
+          { t: "p", x: "La hace un auditor que es empleado y forma parte de la estructura. Aun así, debe cuidar su independencia de criterio para trabajar con calidad. Puede hacer aseguramiento y también consulta o asesoría. Sus informes pueden presentarse en la junta directiva o en la dirección." },
+          { t: "h", x: "Auditoría externa" },
+          { t: "p", x: "Trabaja bajo un contrato de encargo. Quien audita no labora en la empresa; por lo general integra una firma. Presenta una propuesta y la ejecuta en el tiempo planificado. Puede ser financiera o de otras operaciones. El fin es analizar si lo evaluado es razonable y, después, emitir una opinión o un atestiguamiento." }
+        ],
+        activity: {
+          kind: "bins",
+          prompt: "Clasifica cada idea según la lectura. No hace falta memorizar: fíjate en quién hace el trabajo y para qué.",
+          bins: ["Auditoría interna", "Auditoría externa"],
+          items: [
+            { id: "a", text: "Por lo general la realiza un empleado de la organización.", bin: 0 },
+            { id: "b", text: "Quien audita no labora en la empresa y se contrata por un tiempo.", bin: 1 },
+            { id: "c", text: "Puede incluir consultoría o asesoría, además del aseguramiento.", bin: 0 },
+            { id: "d", text: "Con frecuencia se centra en la información financiera, aunque también puede revisar procesos.", bin: 1 },
+            { id: "e", text: "Sus informes pueden llegar a la junta directiva o a la dirección.", bin: 0 }
+          ],
+          why: "La interna es de la organización: un empleado, con independencia de criterio, que asegura y también puede asesorar, y que informa a la junta o a la dirección. La externa entra por contrato, no es personal de la empresa y suele mirar si la información —a menudo la financiera— es razonable, aunque también puede revisar otras operaciones."
+        }
+      },
+      {
+        id: "l2m3",
+        title: "Objetivo, alcance y normas",
+        blocks: [
+          { t: "h", x: "Qué busca la interna y hasta dónde llega" },
+          { t: "p", x: "Su objetivo es verificar que los controles internos se cumplan y que los responsables rindan cuentas, para armar planes de acción y mejorar." },
+          { t: "p", x: "El auditor interno necesita integridad, independencia de criterio, diligencia y preparación profesional. No audita solo lo financiero: también otras operaciones del negocio." },
+          { t: "p", x: "El departamento se apoya en un estatuto de auditoría interna, un manual del proceso, un código de ética y una política de la empresa. Esa política debe dejar claro que el trabajo sigue las normas del IIA: las Normas Internacionales para el ejercicio profesional de la auditoría interna. En la figura de la lectura aparecen también como NIEPAI." },
+          { t: "p", x: "Esas normas son obligatorias, se centran en principios y sirven tanto para hacer la auditoría como para evaluar si se hace bien. Aplican a la organización y a la persona, a nivel internacional (IIA, 2022). La lectura indica que pueden consultarse en el sitio del IIA." },
+          { t: "p", x: "El alcance sigue el plan de auditoría basado en riesgos: qué procesos o áreas se revisan, según los riesgos que pueden frenar los objetivos estratégicos. Se planifica a partir de la estrategia." },
+          { t: "h", x: "Qué busca la externa y hasta dónde llega" },
+          { t: "call", x: "Evaluar si hay evidencia suficiente y adecuada para opinar que la información financiera, en lo sustancial, está libre de fraude y de error." },
+          { t: "p", x: "También puede revisar procesos, áreas, sistemas o subsistemas, y ver si se cumplen los procedimientos y las normas generales de control interno. Entonces puede emitir un informe de servicios relacionados." },
+          { t: "p", x: "Su alcance son las afirmaciones de la gerencia o de la directiva, probadas con procedimientos de auditoría. Se contrata por un período o un proceso. Las partes firman un acuerdo de aseguramiento que termina en el informe." },
+          { t: "h", x: "La comparación de la lectura" },
+          { t: "duo", l: "Auditoría interna", r: "Auditoría externa",
+            li: [
+              "La lleva a cabo, por lo general, un empleado de la organización.",
+              "Reporta a la gerencia sobre las operaciones del negocio.",
+              "Se concentra en verificar el cumplimiento de los controles internos y su efectividad.",
+              "Muchas veces evalúa actividades rutinarias.",
+              "Marco: normas del IIA para el ejercicio profesional de la auditoría interna (NIEPAI)."
+            ],
+            ri: [
+              "La lleva a cabo un profesional en libre ejercicio, contratado por un tiempo específico.",
+              "Con frecuencia se centra en la información financiera; también puede auditar procesos o áreas.",
+              "Evalúa la efectividad de los controles como herramientas para mitigar riesgos.",
+              "Mira el negocio en su totalidad y el análisis es selectivo, con base en muestras.",
+              "Marco: Normas Internacionales de Auditoría (NIA), del IAASB, con apoyo del IFAC."
+            ]
+          },
+          { t: "p", x: "A veces la interna usa las NIA para planificar, evaluar riesgos, comunicar debilidades de control interno y reunir evidencia. El informe no se elabora igual: el propósito de cada trabajo es distinto." }
+        ],
+        activity: {
+          kind: "choice",
+          prompt: "La lectura dice que la auditoría interna a veces usa las NIA. ¿Qué no queda igual que en la auditoría externa?",
+          options: [
+            "La necesidad de reunir evidencia.",
+            "La elaboración del informe, porque el propósito de cada una es distinto.",
+            "La obligación de actuar con ética.",
+            "La existencia de un plan de trabajo."
+          ],
+          answer: 1,
+          why: "La lectura acepta que la interna puede apoyarse en las NIA para planificar, evaluar riesgos, avisar debilidades de control y reunir evidencia. Lo que no coincide es el informe: cada uno responde a un propósito diferente."
+        }
+      },
+      {
+        id: "l2m4",
+        title: "Marco de referencia y ética",
+        blocks: [
+          { t: "h", x: "Sin marco no hay atributos que revisar" },
+          { t: "call", x: "El marco de referencia son las normas, leyes, reglamentos, decretos y procedimientos de control interno, incluidas las reglas fiscales y las de los organismos reguladores que la empresa debe cumplir." },
+          { t: "p", x: "No es el mismo para toda empresa ni para toda auditoría. La lectura pone un ejemplo: en una auditoría financiera de una empresa de alimentos hacen falta las normas contables, en general las NIIF; las reglas fiscales del país (renta, valor agregado, impuestos al consumo o a transacciones financieras); y lo propio del sector, como aranceles, exoneraciones, incentivos o exigencias de un regulador, si existen." },
+          { t: "p", x: "Con eso se arma una lista de atributos de verificación: si la empresa cumple lo obligatorio. No cumplirlo puede derivar en sanciones o multas." },
+          { t: "h", x: "El código que nombra la lectura" },
+          { t: "p", x: "Se cita el Manual del Código Internacional de Ética para Contadores Profesionales, de la IESBA, de 2018. Ahí están los principios fundamentales y la conducta esperada." },
+          { t: "call", x: "Integridad, objetividad, competencia profesional y debido cuidado, confidencialidad y comportamiento profesional." },
+          { t: "p", x: "El Código aporta un marco conceptual para identificar, evaluar y abordar las amenazas a esos principios. De esas amenazas salen los problemas éticos de la profesión." },
+          { t: "p", x: "Está dividido en partes. La parte 1 trata el cumplimiento del Código, los principios fundamentales y el marco conceptual. La parte 2 se dirige a contadores en negocios, bajo relación de dependencia. La parte 3, a contadores en libre ejercicio. La parte 4A cubre los trabajos de auditoría y revisión de quien ejerce libremente. La parte 4B cubre otros encargos de aseguramiento, distintos de la auditoría y la revisión." },
+          { t: "p", x: "La sección 120.6 A3 nombra las amenazas: interés personal, autoevaluación, defensa, familiaridad e intimidación. Para cada una propone salvaguardas." },
+          { t: "p", x: "Vieira (2015) dice que un código de ética ayuda a formar hábitos y creencias dentro de la organización, pero no basta: hace falta conciencia para actuar con buena conducta." }
+        ],
+        activity: {
+          kind: "match",
+          prompt: "Une cada parte del Código, tal como la presenta la lectura, con lo que cubre.",
+          options: [
+            "Cumplimiento, principios fundamentales y marco conceptual",
+            "Contadores en relación de dependencia",
+            "Contadores en libre ejercicio",
+            "Auditoría y revisión de quien ejerce libremente"
+          ],
+          rows: [
+            { id: "p1", left: "Parte 1", answer: 0 },
+            { id: "p2", left: "Parte 2", answer: 1 },
+            { id: "p3", left: "Parte 3", answer: 2 },
+            { id: "p4", left: "Parte 4A", answer: 3 }
+          ],
+          why: "La parte 1 es el tronco: cumplimiento, principios y marco conceptual. La 2 es para quien trabaja en la empresa (dependencia). La 3 es el libre ejercicio en general. La 4A baja a los encargos de auditoría y revisión. La 4B, que no estaba en esta actividad, es para otros aseguramientos. Las amenazas de la sección 120.6 A3 se enfrentan con salvaguardas; no son los principios."
+        }
+      },
+      {
+        id: "l2m5",
+        title: "Casos y cierre",
+        blocks: [
+          { t: "h", x: "Enron y Arthur Andersen" },
+          { t: "p", x: "Vieira (2015) recuerda a Enron. Nació en 1985 al fusionarse Houston Natural Gas e InterNorth. Llegó a operar en gas, electricidad e internet en más de 30 países y a ser la séptima corporación de Estados Unidos. Durante cinco años la destacaron como la más innovadora y también por su gestión." },
+          { t: "p", x: "A fines de 2000 perdió ventaja: entraron otros competidores y bajó el precio de la energía por la recesión. Los directivos escondieron miles de millones de deuda con artificios contables, entidades de propósito especial y 881 subsidiarias en paraísos fiscales, además de informes pobres e inexactos. La auditora Arthur Andersen obvió esas acciones." },
+          { t: "p", x: "Al hacerse público que Enron había participado en mercados de valores, hecho negocios importantes y sobornado empleados, y que quebró en 2001 —con conocimiento de sus auditores—, Andersen perdió credibilidad y cerró. Era una de las cinco grandes firmas y falló en la ética y en la calidad del encargo." },
+          { t: "h", x: "Otros sucesos que cita la lectura" },
+          { t: "cards", items: [
+            { h: "WorldCom", p: "Fraude contable en una empresa de telefonía de Estados Unidos. Usó información falsa para inflar activos en 11.000 millones de dólares. Las pérdidas llegaron a 107.000 millones de dólares en activos. Terminó en quiebra." },
+            { h: "Madoff", p: "La lectura, citando a E3 Media (2021), dice que en 2008 se le acusó de robar 20 millones de dólares a inversores privados, aprovechando su posición en la banca privada. Se declaró culpable y fue condenado a 150 años." },
+            { h: "Tasa Libor", p: "Barclays, en Londres, admitió en 2012 haber manipulado los puntos de referencia de la tasa de interés que se usan para fijar el precio de muchos productos financieros. A Tom Hayes le impusieron 14 años de prisión." },
+            { h: "Petrobras", p: "La lectura señala corrupción entre ejecutivos de la petrolera brasileña: desvío ilegal de millones de dólares de las cuentas hacia fines privados. Entre las acusaciones están el soborno y el blanqueo de dinero." }
+          ]},
+          { t: "p", x: "Carmona (2017) agrega fraudes contables. Lehman Brothers, empresa estadounidense de servicios financieros, colapsó en la crisis de 2008. Ocultaba información en los balances para lograr la aceptación de las calificadoras de riesgo y mostraba aumentos de ingresos. No guardaba las deudas en un rincón: las hacía desaparecer del balance general para que el récord crediticio no se viera afectado." },
+          { t: "p", x: "Parmalat, de alimentos lácteos, con sede en Italia, emitió bonos a finales de 2003 y sorprendió a su junta: el flujo de caja no alcanzaba para pagar los intereses. La sucursal de Brasil alertó que no se pagaba el retorno a inversionistas minoritarios. El problema de fondo fue falsificar estados de cuenta del Bank of America para mostrar efectivo en una sede de las Islas Caimán. La fiscalía italiana encontró, además, deficiencias en los libros y deudas ocultas." },
+          { t: "p", x: "En estos casos pesó la participación de contadores públicos y auditores: avalaron información financiera en perjuicio de otras personas. Por la frecuencia de hechos así, la IFAC, con apoyo del IESBA, actualizó el Código de Ética, con asuntos distintos para quien trabaja en relación de dependencia y para quien ejerce libremente." },
+          { t: "h", x: "Para cerrar la lectura" },
+          { t: "p", x: "La auditoría interna busca generar valor: evalúa controles internos, gestión de riesgos y gobierno, porque acompaña las operaciones. La externa participa emitiendo un informe en el que opina sobre la razonabilidad de la información financiera o de los procesos evaluados." },
+          { t: "p", x: "El aseguramiento y la revisión se hacen con los códigos de ética, internos y externos. Los problemas éticos aparecen mientras exista la oportunidad. Las normas de calidad ayudan a revisar, a reportar debilidades o incumplimientos y a mejorar, para que la profesión se mantenga cerca de las buenas prácticas." }
+        ],
+        activity: {
+          kind: "match",
+          prompt: "¿Qué hizo cada caso, según la lectura? Une.",
+          options: [
+            "La firma auditora no objetó los artificios y luego cerró.",
+            "Las deudas se hacían desaparecer del balance para cuidar el récord ante las calificadoras.",
+            "Se falsificaron estados de cuenta para simular efectivo en las Islas Caimán."
+          ],
+          rows: [
+            { id: "enron", left: "Enron y Arthur Andersen", answer: 0 },
+            { id: "lehman", left: "Lehman Brothers", answer: 1 },
+            { id: "parma", left: "Parmalat", answer: 2 }
+          ],
+          why: "En Enron, Andersen conocía prácticas que no objetó y la firma terminó cerrando tras la quiebra de 2001. Lehman no solo «escondía» deudas: la lectura dice que las desaparecía del balance. Parmalat falsificó estados del Bank of America para mostrar efectivo en las Islas Caimán y, además, ocultaba deudas."
+        }
+      }
+    ],
+    quiz: [
+      { kind: "mc", q: "Según el IIA (2022), citado en la lectura, la auditoría interna es sobre todo:", options: ["Una inspección tributaria del Estado.", "Una actividad independiente y objetiva de aseguramiento y consultoría, para generar valor y mejorar las operaciones.", "Un contrato breve solo para opinar estados financieros.", "Una sanción por incumplimiento fiscal."], answer: 1, why: "El IIA la define como aseguramiento y consultoría, independiente y objetiva, orientada a riesgos, control y gobierno. No es la fiscalización del Estado ni el encargo externo de opinión." },
+      { kind: "tf", q: "El auditor interno no pertenece a la empresa: lo envía una firma por un contrato corto.", options: ["Verdadero", "Falso"], answer: 1, why: "Es al revés. La lectura dice que el auditor interno es empleado, forma parte de la estructura y debe mantener independencia de criterio. Quien no labora en la empresa es el auditor externo." },
+      { kind: "mc", q: "¿Ante quién pueden presentarse los informes de la auditoría interna?", options: ["Solo ante el organismo de impuestos.", "Ante la junta directiva o la dirección.", "Únicamente ante la bolsa de valores.", "Solo ante la firma que después cerró en el caso Enron."], answer: 1, why: "La lectura indica que la interna puede hacer aseguramiento y asesoría, y que sus informes pueden presentarse en reuniones de junta directiva o de dirección." },
+      { kind: "mc", q: "En la figura de la lectura, el marco normativo de la auditoría externa es:", options: ["Las normas del IIA (NIEPAI).", "Las NIA emitidas por el IAASB, con apoyo del IFAC.", "La ISO 14001.", "El estatuto interno de la empresa auditada."], answer: 1, why: "La figura asigna al IIA la auditoría interna y a las NIA del IAASB, con apoyo del IFAC, la externa. La interna a veces usa NIA para planificar o evaluar riesgos, pero el informe no se escribe igual porque el propósito cambia." },
+      { kind: "tf", q: "La auditoría externa, según la figura, evalúa el negocio en su totalidad y su análisis es selectivo, con muestras.", options: ["Verdadero", "Falso"], answer: 0, why: "Así lo dice la comparación: la externa mira el negocio en conjunto y selecciona (muestras). Las actividades rutinarias aparecen del lado de la interna." },
+      { kind: "mc", q: "¿Qué incluye un marco de referencia, según esta lectura?", options: ["Solo la opinión final del auditor.", "Normas, leyes, reglamentos, decretos, procedimientos de control interno y regulaciones fiscales o de organismos reguladores.", "Únicamente el manual de auditoría interna.", "Solo el plan de cuentas."], answer: 1, why: "Antes de empezar, el auditor identifica ese conjunto para saber qué atributos revisar. En el ejemplo de una empresa de alimentos entran NIIF, reglas fiscales del país y normas del sector. Incumplir puede traer sanciones o multas." },
+      { kind: "mc", q: "Los principios fundamentales del Código de la IESBA (2018) son:", options: ["Interés personal, autoevaluación, defensa, familiaridad e intimidación.", "Integridad, objetividad, competencia profesional y debido cuidado, confidencialidad y comportamiento profesional.", "Eficacia, eficiencia y economía.", "Planificación, muestreo y cierre."], answer: 1, why: "Esos cinco son los principios. La otra lista —interés personal, autoevaluación, defensa, familiaridad e intimidación— son las amenazas de la sección 120.6 A3, no los principios. Frente a cada amenaza, el Código propone salvaguardas." },
+      { kind: "tf", q: "La parte 2 del Código se dirige a contadores profesionales en negocios, bajo relación de dependencia.", options: ["Verdadero", "Falso"], answer: 0, why: "La lectura reparte así el Código: parte 1, cumplimiento, principios y marco conceptual; parte 2, relación de dependencia; parte 3, libre ejercicio; parte 4A, auditoría y revisión; parte 4B, otros aseguramientos." },
+      { kind: "mc", q: "En el caso Enron, ¿qué ocurrió con Arthur Andersen según la lectura?", options: ["Denunció a tiempo las 881 subsidiarias y evitó la quiebra.", "Perdió credibilidad y la firma cerró: conoció prácticas que no objetó.", "Era el departamento de auditoría interna de Enron.", "Aplicó salvaguardas y la empresa se salvó."], answer: 1, why: "Enron escondió deuda con artificios, entidades de propósito especial y 881 subsidiarias. Andersen obvió esas acciones. Tras la quiebra de 2001, la firma —una de las cinco grandes— cerró por fallar en la ética y en la calidad del encargo." },
+      { kind: "tf", q: "Lehman Brothers, según Carmona (2017) en esta lectura, hacía desaparecer deudas del balance para que las calificadoras no afectaran su récord crediticio.", options: ["Verdadero", "Falso"], answer: 0, why: "La lectura subraya ese matiz: no es que las deudas quedaran ocultas en otra parte del balance; se las hacía desaparecer, además de mostrar más ingresos. El punto de fondo, junto con Parmalat y los demás casos, es que contadores y auditores llegaron a avalar información en perjuicio de terceros." }
+    ]
+  },
+  {
+    id: "l3",
+    tag: "Lectura 3",
+    title: "Áreas de aplicación y auditorías especializadas",
+    blurb: "El mismo camino —planear, ejecutar, concluir e informar— aplicado a lo financiero, lo operativo, lo público, los sistemas y a áreas muy concretas.",
+    objective: "Reconocer los tipos de auditoría por área de aplicación y las auditorías de áreas específicas, con su propósito y su marco.",
+    modules: [
+      {
+        id: "l3m1",
+        title: "El mismo camino, otra pregunta",
+        blocks: [
+          { t: "p", x: "Ya viste la diferencia entre auditoría interna y externa. Las dos pueden proponer mejoras. Ahora importa ver que el esquema es el mismo: planificación, ejecución, conclusión e informe. Lo que cambia es el área." },
+          { t: "p", x: "Auditar por área permite atestiguar lo financiero, lo normativo, lo tecnológico y el cumplimiento de normas, leyes o regulaciones. Hay que conocer el área, lo que exige y su enfoque." },
+          { t: "p", x: "Esas áreas, a su vez, se abren en áreas específicas. El auditor identifica el marco de cada caso: normas del sector o exigencias de un ente regulador o fiscalizador." },
+          { t: "h", x: "Auditoría financiera" },
+          { t: "p", x: "Según Filgueira (2020), su propósito es que el auditor opine si los estados financieros están preparados, en todo lo sustancial, de acuerdo con el marco conceptual de los informes financieros." },
+          { t: "call", x: "La opinión se expresa así: los estados financieros presentan razonablemente, en todos los aspectos materiales, la situación financiera de la empresa." },
+          { t: "p", x: "Esa opinión aumenta la credibilidad. Da un nivel de certeza alto, pero no absoluto." },
+          { t: "p", x: "Saucedo (2019) resume los objetivos globales en opinar sobre estos puntos:" },
+          { t: "ul", items: [
+            "Que activos, pasivos y capital contable estén libres de incorrección material por fraude o error.",
+            "Que la información esté registrada y muestre la imagen fiel según el marco aplicable.",
+            "La continuidad del negocio en marcha.",
+            "La revelación de asuntos relevantes del negocio.",
+            "La revelación de fraudes y de otros riesgos que limiten las operaciones.",
+            "El cumplimiento de obligaciones legales y reglamentarias."
+          ]},
+          { t: "p", x: "Un dato de la lectura que conviene no mezclar: la opinión sobre la razonabilidad de los saldos solo la emite una auditoría externa. Los análisis financieros de cuentas o partidas específicas los hace la auditoría interna." }
+        ],
+        activity: {
+          kind: "choice",
+          prompt: "Una empresa quiere una opinión sobre si los saldos de sus estados financieros son razonables. ¿Quién puede hacer ese trabajo, según la lectura?",
+          options: [
+            "Solo la auditoría externa.",
+            "Solo la auditoría interna, porque conoce el día a día.",
+            "Cualquiera de las dos, con el mismo informe.",
+            "La contraloría, porque toda opinión financiera es control fiscal."
+          ],
+          answer: 0,
+          why: "La lectura es explícita: opinar sobre la razonabilidad de los saldos solo se ejecuta como auditoría externa. La interna puede analizar cuentas o partidas, pero no sustituye esa opinión. La certeza de la opinión es alta, no absoluta."
+        }
+      },
+      {
+        id: "l3m2",
+        title: "Estructura contable y tres indicadores",
+        blocks: [
+          { t: "h", x: "Cómo está armada la contabilidad" },
+          { t: "p", x: "Al planificar, el auditor entiende la empresa. Entre lo que observa está la estructura contable: activos, pasivos y patrimonio, que son cuentas reales del estado de situación financiera; e ingresos, costos y gastos, que son cuentas nominales del estado de resultados." },
+          { t: "p", x: "También identifica el plan de cuentas y los sistemas con los que se procesa la contabilidad. Al cierre, ingresos, costos y gastos pasan al patrimonio cuando se determina la utilidad o la pérdida: por eso el patrimonio sube o baja." },
+          { t: "call", x: "La ecuación que debe cuadrar es: activo = pasivo + patrimonio. Esa es la lógica de la partida doble." },
+          { t: "h", x: "¿Los activos sirven para generar ingresos?" },
+          { t: "p", x: "Un activo tiene calidad cuando está en operación, produciendo o comercializando bienes o servicios que llegan al mercado. La relación entre activos e ingresos conviene que sea buena: lo invertido debería poder generar beneficios que luego se reinviertan." },
+          { t: "p", x: "El indicador habitual es la rotación de activos. Mide si los activos totales generan ingresos. Lo ideal es un resultado superior a 1: una unidad de activo alcanza para generar al menos una unidad de ingresos. Mientras más alto, mejor. Ross (2018) lo presenta como una visión global del negocio. Conviene calcularlo cada año, sobre un período completo." },
+          { t: "formula", name: "Rotación de activos", expr: "Ingresos / Activo total" },
+          { t: "h", x: "¿Alcanza para pagar lo que vence pronto?" },
+          { t: "p", x: "La liquidez es la capacidad de cubrir compromisos de corto plazo: activos corrientes frente a pasivos corrientes. Hay riesgos que la dañan: cobranzas flojas, clientes con poca capacidad de pago, suba de tasas, inflación u otras variables macroeconómicas." },
+          { t: "call", x: "Ross (2018) pone el foco en poder pagar las cuentas de corto plazo sin presiones excesivas." },
+          { t: "p", x: "La prueba del ácido resta los inventarios a los activos corrientes, para ver con qué rapidez se podrían pagar esas obligaciones." },
+          { t: "formula", name: "Liquidez", expr: "Activo corriente / Pasivo corriente" },
+          { t: "formula", name: "Prueba del ácido", expr: "(Activo corriente − Inventarios) / Pasivo corriente" },
+          { t: "p", x: "La lectura señala como resultado ideal 1 en este análisis de cobertura: por cada unidad de pasivo corriente hay una unidad de activo corriente. La explicación corresponde a la liquidez. La prueba del ácido es el complemento que saca los inventarios." },
+          { t: "h", x: "¿Cuánto del activo es propio?" },
+          { t: "p", x: "La adecuación de capital mira la cobertura del patrimonio sobre los activos. El indicador se llama autonomía. Según Ross (2018), mide cuánto patrimonio se relaciona con la inversión en activos. Es el complemento del endeudamiento: ambos deben sumar 100 %." },
+          { t: "p", x: "Colom (2020) llama autonomía a la independencia financiera: la parte del activo financiada con fondos propios. El endeudamiento es la parte cubierta con financiamiento externo." },
+          { t: "formula", name: "Autonomía", expr: "Patrimonio total / Activo total × 100" },
+          { t: "formula", name: "Endeudamiento", expr: "Pasivo total / Activo total × 100" }
+        ],
+        activity: {
+          kind: "choice",
+          prompt: "¿Cuál es la prueba del ácido, tal como la escribe la lectura?",
+          options: [
+            "Ingresos / Activo total",
+            "(Activo corriente − Inventarios) / Pasivo corriente",
+            "Patrimonio total / Activo total × 100",
+            "Pasivo total / Activo total × 100"
+          ],
+          answer: 1,
+          why: "La prueba del ácido saca los inventarios del activo corriente y divide por el pasivo corriente: así se ve la cobertura más inmediata. Ingresos / Activo total es la rotación (lo ideal es más de 1). Patrimonio / Activo es la autonomía, y Pasivo / Activo es el endeudamiento; esas dos, en porcentaje, suman 100 %."
+        }
+      },
+      {
+        id: "l3m3",
+        title: "Gestión, operación, integral, Estado y sistemas",
+        blocks: [
+          { t: "h", x: "Auditoría administrativa" },
+          { t: "p", x: "Chavarría (2016) la describe como una revisión detallada del proceso administrativo, para corregirlo o reforzarlo y lograr una ventaja competitiva. Puede mirar una actividad o la organización entera, en busca de eficiencia." },
+          { t: "p", x: "Los criterios que la lectura lista para definir objetivos son: control (cumplir metas), productividad (uso eficiente de recursos), organización (cada actividad con un responsable), servicio (cliente interno y externo), calidad (metas claras) y toma de decisiones (que la dirección vea los hechos con precisión y así baje el riesgo)." },
+          { t: "p", x: "Sirve para revisar si de verdad ocurren las actividades del modelo de negocio, el estilo y la filosofía de gestión, y qué tan productiva es la organización con lo que tiene." },
+          { t: "h", x: "Auditoría operacional" },
+          { t: "p", x: "Revisa procesos operativos, con profesionales calificados, para evaluar la eficacia y subir el rendimiento. Examina métodos, procedimientos y el control interno, en organizaciones públicas o privadas (Vivancos y otros, 2021)." },
+          { t: "p", x: "Se aplica con objetividad y de forma sistemática. Puede tocar finanzas, producción, calidad, compras, logística u otro proceso. También se la llama auditoría de las tres E." },
+          { t: "ul", items: [
+            "Eficacia: lograr metas con las mejores prácticas y métodos.",
+            "Eficiencia: lograrlas usando bien los recursos disponibles.",
+            "Economía: comprar los insumos en el momento preciso, al menor costo y en la cantidad necesaria."
+          ]},
+          { t: "p", x: "Permite ver la calidad de los procesos, identificar los críticos, evaluar si los controles funcionan y poner en marcha planes de mejora continua." },
+          { t: "h", x: "Auditoría integral" },
+          { t: "p", x: "Blanco (2015) la define como obtener y evaluar, en un período, evidencia sobre cuatro temas: la información financiera, la estructura de control interno financiero, el cumplimiento de leyes y regulaciones, y la conducción ordenada hacia las metas. El informe dice qué tanto eso corresponde a los criterios usados." },
+          { t: "p", x: "El informe es de propósito general, para un número indeterminado de usuarios, pero se dirige a quien se espera que lo use: bancos, entes reguladores o la alta gerencia." },
+          { t: "p", x: "Si la hace un auditor externo, opina sobre la razonabilidad de los estados financieros. Si la hace un auditor interno, informa al usuario final el objetivo, las debilidades u oportunidades y las recomendaciones." },
+          { t: "h", x: "Auditoría gubernamental" },
+          { t: "p", x: "También se llama auditoría pública. La hacen entes fiscalizadores de gobiernos centralizados o descentralizados, para verificar normas, leyes y reglamentos y rendir cuentas por el uso de recursos del Estado." },
+          { t: "p", x: "El control fiscal, según Romero (2022), vigila la gestión fiscal de la administración y de quienes manejan fondos o bienes del Estado, en todos los órdenes. Se ejecuta después de los hechos y de forma selectiva, por ejemplo en contralorías generales, departamentales y municipales, conforme a la ley." },
+          { t: "ul", items: [
+            "Control financiero: razonabilidad de operaciones y estados, con normas de auditoría.",
+            "Control de legalidad: si las operaciones se ajustan a normas de estricto cumplimiento.",
+            "Control de gestión: eficiencia y eficacia en el uso de recursos públicos.",
+            "Control de resultados: si planes y proyectos se cumplen en los tiempos previstos."
+          ]},
+          { t: "h", x: "Auditoría de sistemas" },
+          { t: "p", x: "La tecnología y los sistemas sostienen las operaciones, junto con las personas. También se auditan, para ver si se siguen los controles y la seguridad de la información. Puede hacerla un auditor interno o uno externo." },
+          { t: "p", x: "ISACA promueve estándares de auditoría de controles en sistemas y la define como un examen objetivo de la evidencia para evaluar gestión de riesgos, control o gobierno, a partir de la seguridad del sistema (ISACA, 2017). También se la llama auditoría TI." },
+          { t: "p", x: "El informe trae observaciones, recomendaciones y planes de acción, y hay que hacerles seguimiento. Cooke (2017) dice que una clave es verificar que el riesgo quedó mitigado, y sugiere COBIT 5, de ISACA: las recomendaciones se organizan y se monitorean." },
+          { t: "p", x: "Así se mira la seguridad de la información, si la infraestructura es adecuada y, como tendencia más nueva, el gobierno de TI: autorizaciones, segregación de funciones, confidencialidad y protección frente a ataques informáticos." }
+        ],
+        activity: {
+          kind: "bins",
+          prompt: "¿A qué tipo corresponde cada propósito? Usa el nombre que le da la lectura.",
+          bins: ["Administrativa", "Operacional", "Integral", "Gubernamental"],
+          items: [
+            { id: "ad", text: "Revisa el proceso administrativo para corregirlo o reforzarlo y buscar ventaja competitiva.", bin: 0 },
+            { id: "op", text: "Evalúa eficacia, eficiencia y economía de las operaciones.", bin: 1 },
+            { id: "in", text: "Reúne evidencia financiera, de control interno, de leyes y del logro de metas.", bin: 2 },
+            { id: "gu", text: "Un ente fiscalizador rinde cuentas por recursos del Estado, después de los hechos y de forma selectiva.", bin: 3 }
+          ],
+          why: "Administrativa: el proceso de gestión y la ventaja competitiva (Chavarría). Operacional: las tres E (Vivancos). Integral: los cuatro temas de Blanco; el externo opina sobre los estados y el interno informa debilidades al usuario final. Gubernamental o pública: contralorías y control fiscal posterior y selectivo, no una revisión de todo antes de que ocurra."
+        }
+      },
+      {
+        id: "l3m4",
+        title: "Áreas específicas del negocio",
+        blocks: [
+          { t: "p", x: "Dentro de cada sector aparecen áreas que piden su propia revisión. Hacen falta equipos especializados, para entender la empresa y los procesos con una mirada interdisciplinaria. El marco suele venir del sector o de un regulador." },
+          { t: "cards", items: [
+            { h: "Construcciones", p: "Es una auditoría operacional: eficacia del cronograma, eficiencia en el uso de recursos y economía en compras de bienes, insumos y servicios. La obra se apoya en un contrato. La lectura recuerda la NIIF 15: un contrato es un acuerdo entre dos o más partes que crea derechos y obligaciones exigibles. Según Desing Lab (2019) se siguen cláusulas y leyes, costos, subcontratos, alcance, ejecución presupuestaria y variaciones; también pedidos, pagos, la oferta y los riesgos de cada fase. El marco incluye las leyes del país, permisos, relación con las comunidades, buenas prácticas de obra y criterios contables." },
+            { h: "Fiscal", p: "Revisa evidencia de que la empresa cumple los deberes formales de las leyes y reglamentos impositivos. Reyes (2015) la llama también auditoría tributaria: evidencia sobre hechos de carácter tributario. La puede hacer un auditor interno o externo. Mira si los compromisos fiscales se registraron de forma razonable y si las declaraciones siguen las normas vigentes. La fiscalización de la administración tributaria —nacional o municipal— es otra cosa: la lectura la trata como auditoría gubernamental o pública, sobre libros, ingresos facturados, costos, gastos y facturas. El marco son las leyes impositivas y los códigos tributarios. La evasión puede traer sanciones de dinero y hasta el cierre." },
+            { h: "Laboral", p: "La lectura la considera un tipo de auditoría integral: hay análisis financiero de contribuciones y retenciones, cumplimiento normativo, gestión de personas y controles sobre relaciones laborales, compensación, formación, desarrollo y desempeño. La interna la hace de forma continua; la externa, por lo general cada año, dentro de la auditoría de estados financieros. El marco son las leyes de trabajo y las de aportes. Se revisan sueldos, nómina, seguro social, vacaciones, utilidades y bonos, y también convenciones colectivas, clima y planes de formación." },
+            { h: "Proyectos", p: "El PMI señala que una gerencia de proyectos debe vigilar estándares, políticas, procedimientos y plantillas mediante auditorías. La lectura las llama auditorías de calidad: un proceso estructurado e independiente para ver si las actividades cumplen políticas, procesos y procedimientos, y si se aplicaron los cambios aprobados. Busca buenas prácticas, no conformidades, compartir lo que sirvió y dejar lecciones aprendidas. Es una auditoría de cumplimiento y, por lo general, la hace la auditoría interna." },
+            { h: "Ambiental", p: "Verifica que las obligaciones legales estén puestas en práctica en un sistema de gestión ambiental. La familia ISO 14000 trata esos asuntos; la ISO 14001 (2015) guía la auditoría. La define como la herramienta que da información para controlar, planificar y revisar actividades con efecto sobre el medioambiente. Objetivos: cumplir la ley, recomendar mejoras y hallar áreas de mejora del sistema. El incumplimiento suele traer sanciones graves. La puede hacer un auditor interno o externo. Su esencia es el cumplimiento normativo." },
+            { h: "Inventarios", p: "En empresas que comercian o producen, el inventario es una partida principal. Hay que revisar recepción, almacenamiento y despacho. La auditoría prueba controles y saldos: importan el costo unitario, las cantidades y el estado de las existencias. Luzardo y Molina, citados por Mercado y Peinado (2021), recuerdan que el inventario determina el costo de ventas y, con eso, el resultado del ejercicio. Se verifican medición contable, sistemas, almacén, conteo físico, controles, cálculo del costo y obsolescencia o deterioro. Es una auditoría operacional y financiera, con énfasis en el control interno y en el costo." }
+          ]}
+        ],
+        activity: {
+          kind: "match",
+          prompt: "Une el área con la idea que la lectura usa para reconocerla.",
+          options: [
+            "Tres E de la obra y un contrato entre las partes",
+            "Leyes impositivas y códigos tributarios",
+            "ISO 14001 y el sistema de gestión ambiental",
+            "Costo de ventas, existencias y controles de almacén",
+            "Cumplimiento de políticas del proyecto; suele hacerla auditoría interna"
+          ],
+          rows: [
+            { id: "co", left: "Construcciones", answer: 0 },
+            { id: "fi", left: "Fiscal", answer: 1 },
+            { id: "am", left: "Ambiental", answer: 2 },
+            { id: "inv", left: "Inventarios", answer: 3 },
+            { id: "pr", left: "Proyectos", answer: 4 }
+          ],
+          why: "Construcciones es operacional (eficacia, eficiencia y economía) y se apoya en el contrato, que la NIIF 15 define como acuerdo con derechos y obligaciones exigibles. La fiscal se mide contra la norma impositiva; la fiscalización del Estado es, para la lectura, una auditoría pública. La ambiental se guía por ISO 14001. El inventario pesa en el costo de ventas y en el resultado. La de proyectos es de calidad y cumplimiento, y por lo general la hace auditoría interna."
+        }
+      },
+      {
+        id: "l3m5",
+        title: "Tecnología, en capas, y cierre",
+        blocks: [
+          { t: "p", x: "Además de la auditoría de sistemas del módulo anterior, la lectura abre varias capas. No son el mismo trabajo." },
+          { t: "cards", items: [
+            { h: "Sistemas computacionales", p: "Ortiz (2020): revisión técnica y exhaustiva del hardware y el software, propios o compartidos, y de instalaciones, telecomunicaciones, mobiliario, periféricos y demás componentes. Es frecuente revisar el estado físico y la ubicación de las estaciones de trabajo." },
+            { h: "Informática", p: "La lectura la trata como auditoría administrativa. Arcentales y Caicedo (2017): ver fortalezas y debilidades de los sistemas, de la plataforma, de la calidad del servicio de la unidad encargada y de los contratos con proveedores. Busca que la información tenga efectividad, eficiencia, confiabilidad, integridad, disponibilidad y cumplimiento. El marco que cita es COSO, los controles de COBIT (ISACA) e ITIL." },
+            { h: "Seguridad de sistemas", p: "La seguridad es un riesgo: pérdida de información confidencial, protocolos rotos, ciberataques, pérdidas financieras y daño al control interno. Se planifica y la pueden hacer auditores internos o externos. La lectura la considera integral, porque mira riesgos, gestión, cumplimiento y la cuantificación de pérdidas. La serie ISO 27000 reúne esas normas. Con la ISO 27001, la organización audita si el sistema de gestión cumple, entre otros, políticas, organización de la seguridad, recursos humanos, activos, accesos, criptografía y seguridad física y ambiental." },
+            { h: "Infraestructura (redes y cómputos)", p: "Según Ciberseguridad.com (2021), se estudia la red para ver si está sana respecto de lo que la organización necesita, y si cumple políticas internas y externas. Componentes: inventario de dispositivos (nombre, capacidad, interfaces), diagramas de conexión, hitos para ubicar información del fabricante cuando el equipo llega al fin de soporte, y control de licencias para que no se suspendan los aplicativos. El auditor tiene que seguir tendencias y normas." },
+            { h: "Gobierno de TI", p: "García (2018): procesos, estructuras y liderazgo para que TI apoye la estrategia y los objetivos. Es responsabilidad conjunta con la alta dirección. La lectura dice que podría clasificarse como administrativa, porque evalúa procesos y filosofía de gestión. La ISO 38500 (2015) aplica a esos servicios, estén dentro de la empresa o externalizados; por eso la pueden hacer auditores internos o externos. Hay dos variables: la oferta de servicios de TI y la demanda, es decir el consumo de los usuarios. Componentes: continuidad y recuperación ante desastres, arquitectura y cumplimiento, gobierno y seguridad de la información, gestión de servicios y gestión de riesgos. Se apoya en COBIT 5 y en ITIL, que coinciden en auditar con frecuencia." }
+          ]},
+          { t: "h", x: "Qué une a todas" },
+          { t: "p", x: "Internas o externas, las auditorías reúnen evidencia, contrastan un marco y atestiguan en un informe. Por eso existen la financiera (opinión sobre la razonabilidad de los saldos), la operacional (eficacia, eficiencia y economía), la administrativa (filosofía de gestión y logro de objetivos, en un proceso o en toda la organización), la gubernamental (recursos del Estado en entes centrales o descentralizados), la integral (gestión, finanzas, operación y cumplimiento) y la de sistemas (seguridad de la información y riesgos)." },
+          { t: "p", x: "En las distintas áreas se repite un gesto: ver si los controles se cumplen, informar debilidades y dejar planes de acción para mejorar. La financiera, además, da fe pública de los saldos." },
+          { t: "p", x: "Las auditorías de áreas específicas las hacen internos y externos. Usan técnicas operacionales, gubernamentales, financieras, integrales o administrativas, entre otras. Hace falta entender de verdad el marco: leyes, decretos u otra norma que esa área está obligada a cumplir." }
+        ],
+        activity: {
+          kind: "choice",
+          prompt: "Según García (2018), citado en la lectura, el gobierno de TI es responsabilidad de:",
+          options: [
+            "Solo del personal técnico, sin la alta dirección.",
+            "La organización de TI junto con la alta dirección.",
+            "Únicamente de la contraloría general.",
+            "Solo de quien opina los estados financieros."
+          ],
+          answer: 1,
+          why: "García define el gobierno de TI como procesos, estructuras y liderazgo para que la tecnología apoye la estrategia, y lo plantea como responsabilidad conjunta con la alta dirección. La ISO 38500 vale si TI está dentro o si se externaliza, así que el trabajo lo puede hacer un auditor interno o uno externo. No es lo mismo que el inventario de computadoras ni que la opinión sobre los saldos."
+        }
+      }
+    ],
+    quiz: [
+      { kind: "tf", q: "La opinión sobre la razonabilidad de los saldos de los estados financieros la puede emitir por igual la auditoría interna.", options: ["Verdadero", "Falso"], answer: 1, why: "La lectura dice lo contrario: esa opinión solo se ejecuta como auditoría externa. La interna hace análisis de cuentas o partidas. La opinión da certeza alta, no absoluta, y usa la frase de que los estados presentan razonablemente, en los aspectos materiales, la situación financiera." },
+      { kind: "mc", q: "La ecuación contable que el auditor debe reconocer en la estructura de la empresa es:", options: ["Activo = Ingresos − Gastos", "Activo = Pasivo + Patrimonio", "Patrimonio = Pasivo + Activo", "Liquidez = Activo total / Pasivo total"], answer: 1, why: "Activo, pasivo y patrimonio son cuentas reales. Ingresos, costos y gastos son nominales y, al cierre, pasan al patrimonio según haya utilidad o pérdida. La partida doble exige que el activo iguale pasivo más patrimonio." },
+      { kind: "mc", q: "La rotación de activos, según la lectura, se lee así:", options: ["Pasivo corriente / Activo corriente. Lo ideal es cero.", "Ingresos / Activo total. Lo ideal es superior a 1 y conviene medirla en un año completo.", "Patrimonio / Pasivo. Lo ideal es 100.", "Activo corriente menos inventarios, sin dividir."], answer: 1, why: "Si el resultado supera 1, cada unidad de activo genera más de una unidad de ingresos: mejor calidad de activos, en la visión global que la lectura toma de Ross (2018). Por debajo de 1, el activo no alcanza a generar una unidad de ingreso por cada unidad invertida." },
+      { kind: "tf", q: "Autonomía y endeudamiento son complementarios y, según la lectura, deben sumar 100 %.", options: ["Verdadero", "Falso"], answer: 0, why: "Autonomía = patrimonio / activo × 100: la parte financiada con fondos propios (Colom, 2020). Endeudamiento = pasivo / activo × 100: la parte con financiamiento externo. Juntas cubren el activo." },
+      { kind: "mc", q: "La auditoría operacional, la de las tres E, evalúa:", options: ["Integridad, objetividad y confidencialidad.", "Eficacia, eficiencia y economía.", "Activo, pasivo y patrimonio.", "Hardware, software y mobiliario."], answer: 1, why: "Eficacia es lograr las metas con buenas prácticas. Eficiencia es lograrlas usando bien los recursos. Economía es conseguir los insumos a tiempo, al menor costo y en la cantidad necesaria. No confundir con los principios del código de ética ni con la ecuación contable." },
+      { kind: "mc", q: "Según Blanco (2015), la auditoría integral reúne evidencia sobre:", options: ["Solo el conteo físico del inventario.", "Información financiera, control interno financiero, leyes y regulaciones, y la conducción hacia las metas.", "Únicamente los diagramas de red.", "Solo las cláusulas de una obra."], answer: 1, why: "Esos cuatro temas se comparan con criterios o indicadores. El informe es de propósito general, pero se dirige a quien lo va a usar, por ejemplo bancos, reguladores o la alta gerencia. El externo opina sobre los estados; el interno informa objetivo, debilidades y recomendaciones." },
+      { kind: "tf", q: "El control fiscal revisa todos los hechos antes de que ocurran.", options: ["Verdadero", "Falso"], answer: 1, why: "Romero (2022), en la lectura: el control fiscal es posterior a los hechos y selectivo. Lo hacen entes como las contralorías. Sus piezas son el control financiero, el de legalidad, el de gestión y el de resultados." },
+      { kind: "mc", q: "¿Qué guía usa la lectura para la auditoría ambiental?", options: ["La ISO 14001, dentro de la familia ISO 14000.", "La prueba del ácido.", "Solo el PMBOK, como norma ambiental.", "La NIIF 15 como única norma de medioambiente."], answer: 0, why: "La ISO 14001 es la guía de las auditorías ambientales ligadas al sistema de gestión ambiental. Busca cumplimiento legal, recomendaciones y áreas de mejora. Incumplir las normas ambientales suele traer sanciones importantes. La NIIF 15, en esta lectura, define el contrato de una obra, no el ambiente." },
+      { kind: "mc", q: "La auditoría de inventarios, en esta lectura, es ante todo:", options: ["Una auditoría de la contraloría sobre fondos públicos.", "Una auditoría operacional y financiera, con énfasis en controles internos y en el costo.", "Una revisión de licencias de software.", "La auditoría de calidad de proyectos del PMI."], answer: 1, why: "El inventario entra al costo de ventas y, por eso, al resultado del ejercicio. Se miran medición, sistemas, almacén, conteo, controles, cálculo del costo y obsolescencia. No es lo mismo que la de redes ni que la de proyectos." },
+      { kind: "tf", q: "El gobierno de TI, según García (2018) en la lectura, es solo asunto del personal técnico y no de la alta dirección.", options: ["Verdadero", "Falso"], answer: 1, why: "Es responsabilidad conjunta con la alta dirección: que la tecnología apoye la estrategia. La ISO 38500 aplica si el servicio está dentro o externalizado. Oferta de servicios y demanda de los usuarios son las dos variables. Por eso pueden auditarlo internos o externos." }
+    ]
+  }
+];
+
+const state = { view: "cover", rid: null, mid: null };
+let lastKey = "";
+
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, function (c) {
+    if (c === "&") return "&" + "amp;";
+    if (c === "<") return "&" + "lt;";
+    if (c === ">") return "&" + "gt;";
+    if (c === '"') return "&" + "quot;";
+    return "&" + "#39;";
+  });
+}
+function emptyReading() { return { done: {}, acts: {}, quiz: null }; }
+function loadData() {
+  try {
+    const raw = JSON.parse(localStorage.getItem(DATA_KEY) || "null");
+    if (!raw || !raw.l2 || !raw.l3) return { l2: emptyReading(), l3: emptyReading() };
+    return raw;
+  } catch (e) {
+    return { l2: emptyReading(), l3: emptyReading() };
+  }
+}
+let data = loadData();
+function save() {
+  try { localStorage.setItem(DATA_KEY, JSON.stringify(data)); } catch (e) {}
+}
+function reading() { return READINGS.find(function (r) { return r.id === state.rid; }); }
+function moduleOf() {
+  const r = reading();
+  if (!r) return null;
+  return r.modules.find(function (m) { return m.id === state.mid; }) || null;
+}
+function applyTheme(t) {
+  document.documentElement.setAttribute("data-theme", t);
+  try { localStorage.setItem(THEME_KEY, t); } catch (e) {}
+  const b = document.getElementById("themeBtn");
+  if (b) b.textContent = t === "dark" ? "Modo claro" : "Modo oscuro";
+}
+function initTheme() {
+  let t = "light";
+  try { t = localStorage.getItem(THEME_KEY) || "light"; } catch (e) {}
+  applyTheme(t === "dark" ? "dark" : "light");
+}
+function ensureAct(mid) {
+  const bag = data[state.rid];
+  if (!bag.acts[mid]) bag.acts[mid] = { picks: {}, submitted: false, ok: false, msg: "" };
+  return bag.acts[mid];
+}
+function ensureQuiz() {
+  if (!data[state.rid].quiz) data[state.rid].quiz = { step: 0, picks: {}, revealed: {}, finished: false, score: null };
+  return data[state.rid].quiz;
+}
+function blocksHTML(blocks) {
+  return blocks.map(function (b) {
+    if (b.t === "p") return "<p>" + esc(b.x) + "</p>";
+    if (b.t === "h") return "<h2>" + esc(b.x) + "</h2>";
+    if (b.t === "call") return "<blockquote class=\"call\">" + esc(b.x) + "</blockquote>";
+    if (b.t === "ul") return "<ul>" + b.items.map(function (i) { return "<li>" + esc(i) + "</li>"; }).join("") + "</ul>";
+    if (b.t === "formula") return "<div class=\"formula\"><span>" + esc(b.name) + "</span><strong>" + esc(b.expr) + "</strong></div>";
+    if (b.t === "cards") {
+      return "<div class=\"cards\">" + b.items.map(function (c) {
+        return "<article class=\"card\"><h3>" + esc(c.h) + "</h3><p>" + esc(c.p) + "</p></article>";
+      }).join("") + "</div>";
+    }
+    if (b.t === "duo") {
+      return "<div class=\"duo\"><section><h3>" + esc(b.l) + "</h3><ul>" + b.li.map(function (i) { return "<li>" + esc(i) + "</li>"; }).join("") + "</ul></section><section><h3>" + esc(b.r) + "</h3><ul>" + b.ri.map(function (i) { return "<li>" + esc(i) + "</li>"; }).join("") + "</ul></section></div>";
+    }
+    return "";
+  }).join("");
+}
+function activityHTML(mod) {
+  const act = mod.activity;
+  const rec = (data[state.rid].acts || {})[mod.id] || { picks: {}, submitted: false, msg: "" };
+  let body = "";
+  if (act.kind === "choice") {
+    body = "<div class=\"opts\">" + act.options.map(function (op, i) {
+      const on = rec.picks.sel === i;
+      let cls = "opt";
+      if (rec.submitted && i === act.answer) cls += " hit";
+      else if (rec.submitted && on && i !== act.answer) cls += " miss";
+      else if (on) cls += " on";
+      return "<button type=\"button\" class=\"" + cls + "\" data-act=\"pick-choice\" data-i=\"" + i + "\"" + (rec.submitted ? " disabled" : "") + ">" + esc(op) + "</button>";
+    }).join("") + "</div>";
+  } else if (act.kind === "bins" && act.bins.length <= 2) {
+    body = act.items.map(function (it) {
+      const chosen = rec.picks[it.id];
+      const btns = act.bins.map(function (label, bi) {
+        let cls = "binbtn";
+        const on = chosen === bi;
+        if (rec.submitted && on && bi === it.bin) cls += " hit";
+        else if (rec.submitted && on && bi !== it.bin) cls += " miss";
+        else if (on) cls += " on";
+        return "<button type=\"button\" class=\"" + cls + "\" data-act=\"pick-bin\" data-item=\"" + esc(it.id) + "\" data-bin=\"" + bi + "\"" + (rec.submitted ? " disabled" : "") + ">" + esc(label) + "</button>";
+      }).join("");
+      return "<div class=\"card\"><p>" + esc(it.text) + "</p><div class=\"nav\">" + btns + "</div></div>";
+    }).join("");
+  } else if (act.kind === "bins") {
+    body = act.items.map(function (it) {
+      const chosen = rec.picks[it.id];
+      const opts = "<option value=\"\">Elige…</option>" + act.bins.map(function (label, bi) {
+        return "<option value=\"" + bi + "\"" + (String(chosen) === String(bi) ? " selected" : "") + ">" + esc(label) + "</option>";
+      }).join("");
+      return "<label class=\"row\"><span>" + esc(it.text) + "</span><select data-bin-item=\"" + esc(it.id) + "\"" + (rec.submitted ? " disabled" : "") + ">" + opts + "</select></label>";
+    }).join("");
+  } else if (act.kind === "match") {
+    body = act.rows.map(function (row) {
+      const chosen = rec.picks[row.id];
+      const opts = "<option value=\"\">Elige…</option>" + act.options.map(function (label, bi) {
+        return "<option value=\"" + bi + "\"" + (String(chosen) === String(bi) ? " selected" : "") + ">" + esc(label) + "</option>";
+      }).join("");
+      return "<label class=\"row\"><span>" + esc(row.left) + "</span><select data-match=\"" + esc(row.id) + "\"" + (rec.submitted ? " disabled" : "") + ">" + opts + "</select></label>";
+    }).join("");
+  }
+  let fb = "";
+  if (rec.msg && !rec.submitted) fb = "<p class=\"warn\" id=\"feedback\">" + esc(rec.msg) + "</p>";
+  if (rec.submitted) {
+    fb = "<div class=\"feedback " + (rec.ok ? "good" : "bad") + "\" id=\"feedback\"><strong>" + (rec.ok ? "Sí. Esa es la idea de la lectura." : "Conviene ajustar la idea. La lectura lo dice así:") + "</strong><p>" + esc(act.why) + "</p></div>";
+  }
+  const btn = rec.submitted ? "" : "<button type=\"button\" class=\"btn primary\" data-act=\"submit-act\">Comprobar</button>";
+  return "<section class=\"activity\"><p class=\"kicker\">Actividad breve</p><h2>" + esc(act.prompt) + "</h2>" + body + fb + "<div class=\"nav\">" + btn + "</div></section>";
+}
+function coverHTML() {
+  const cards = READINGS.map(function (r) {
+    const done = r.modules.filter(function (m) { return data[r.id].done[m.id]; }).length;
+    const q = data[r.id].quiz;
+    const qtxt = q && q.finished ? "Quiz: " + q.score + "/10" : "Quiz de 10 preguntas";
+    return "<button type=\"button\" class=\"choice\" data-act=\"open-reading\" data-id=\"" + r.id + "\"><em>" + esc(r.tag) + "</em><strong>" + esc(r.title) + "</strong><span>" + esc(r.blurb) + "</span><span class=\"meta\">" + done + " de " + r.modules.length + " módulos · " + esc(qtxt) + "</span></button>";
+  }).join("");
+  return "<p class=\"kicker\">Menú inicial · Auditoría Especializada</p><h1>Profesor Sergio Tertusio</h1><p class=\"lede\">Dos lecturas para comprender, no para memorizar. Elige cuál abrir. Puedes volver a este menú desde cualquier pantalla.</p><div class=\"choices\">" + cards + "</div><p class=\"foot\">Texto fiel a las lecturas del curso. No agrega datos que no estén en el material.</p>";
+}
+function tocHTML() {
+  const r = reading();
+  const done = r.modules.filter(function (m) { return data[r.id].done[m.id]; }).length;
+  const q = data[r.id].quiz;
+  let qLabel = "Quiz · 10 preguntas";
+  if (q && q.finished) qLabel = "Quiz terminado · " + q.score + "/10 · ver o reintentar";
+  else if (q && (q.step > 0 || q.revealed[0])) qLabel = "Continuar el quiz";
+  const mods = r.modules.map(function (m, i) {
+    const mark = data[r.id].done[m.id] ? " Hecho" : "";
+    return "<button type=\"button\" class=\"mod" + (data[r.id].done[m.id] ? " done" : "") + "\" data-act=\"open-mod\" data-id=\"" + m.id + "\"><span class=\"num\">" + (i + 1) + "</span><span><strong>" + esc(m.title) + "</strong><small>Módulo " + (i + 1) + (mark ? " · " + mark : "") + "</small></span></button>";
+  }).join("");
+  return "<p class=\"crumb\">" + esc(r.tag) + "</p><p class=\"kicker\">Menú de la lectura</p><h1 style=\"font-size:clamp(1.8rem,6vw,2.6rem)\">" + esc(r.title) + "</h1><p>" + esc(r.objective) + "</p><p class=\"note\">" + done + " de " + r.modules.length + " actividades hechas. Puedes entrar a cualquier módulo.</p><div class=\"modlist\">" + mods + "</div><button type=\"button\" class=\"btn primary\" data-act=\"open-quiz\">" + esc(qLabel) + "</button>";
+}
+function modHTML() {
+  const r = reading();
+  const m = moduleOf();
+  const idx = r.modules.findIndex(function (x) { return x.id === m.id; });
+  const next = r.modules[idx + 1];
+  const nextBtn = next
+    ? "<button type=\"button\" class=\"btn primary\" data-act=\"open-mod\" data-id=\"" + next.id + "\">Siguiente módulo</button>"
+    : "<button type=\"button\" class=\"btn primary\" data-act=\"open-quiz\">Ir al quiz</button>";
+  return "<p class=\"crumb\">" + esc(r.tag) + " · Módulo " + (idx + 1) + " de " + r.modules.length + "</p><p class=\"kicker\">" + esc(r.tag) + "</p><h1 style=\"font-size:clamp(1.8rem,6vw,2.5rem)\">" + esc(m.title) + "</h1>" + blocksHTML(m.blocks) + activityHTML(m) + "<div class=\"nav\"><button type=\"button\" class=\"btn\" data-act=\"open-toc\">Módulos</button>" + nextBtn + "</div>";
+}
+function quizHTML() {
+  const r = reading();
+  const qz = ensureQuiz();
+  if (qz.finished) {
+    const misses = r.quiz.map(function (q, i) {
+      if (qz.picks[i] === q.answer) return "";
+      return "<div class=\"miss\"><strong>Pregunta " + (i + 1) + ".</strong> " + esc(q.q) + "<p>" + esc(q.why) + "</p></div>";
+    }).join("");
+    let comment = "La idea general está. Relee las explicaciones de abajo y, si quieres, los módulos.";
+    if (qz.score >= 8) comment = "Puedes explicar esta lectura con tus palabras. Las que fallaste, si hay, quedan abajo.";
+    if (qz.score < 5) comment = "Todavía no cierra la idea. Vuelve a los módulos y reintenta el quiz.";
+    if (qz.score === 10) comment = "Las diez coinciden con la lectura. Reintentar sirve para fijarla, no para memorizar la opción.";
+    return "<p class=\"crumb\">" + esc(r.tag) + " · Quiz</p><p class=\"kicker\">Resultado</p><p class=\"score\">" + qz.score + " / 10</p><p>" + esc(comment) + "</p>" + (misses ? "<h2>Dónde la lectura dice otra cosa</h2>" + misses : "") + "<div class=\"nav\"><button type=\"button\" class=\"btn primary\" data-act=\"quiz-retry\">Reintentar</button><button type=\"button\" class=\"btn\" data-act=\"open-toc\">Módulos</button></div>";
+  }
+  const q = r.quiz[qz.step];
+  const revealed = !!qz.revealed[qz.step];
+  const opts = q.options.map(function (op, i) {
+    let cls = "opt";
+    const picked = qz.picks[qz.step] === i;
+    if (revealed && i === q.answer) cls += " hit";
+    else if (revealed && picked) cls += " miss";
+    else if (picked) cls += " on";
+    return "<button type=\"button\" class=\"" + cls + "\" data-act=\"quiz-pick\" data-i=\"" + i + "\"" + (revealed ? " disabled" : "") + ">" + esc(op) + "</button>";
+  }).join("");
+  let fb = "";
+  if (revealed) {
+    const ok = qz.picks[qz.step] === q.answer;
+    fb = "<div class=\"feedback " + (ok ? "good" : "bad") + "\" id=\"feedback\"><strong>" + (ok ? "Correcto." : "No es esa.") + "</strong><p>" + esc(q.why) + "</p></div>";
+  }
+  const next = revealed
+    ? "<button type=\"button\" class=\"btn primary\" data-act=\"quiz-next\">" + (qz.step === r.quiz.length - 1 ? "Ver resultado" : "Siguiente") + "</button>"
+    : "";
+  return "<p class=\"crumb\">" + esc(r.tag) + " · Pregunta " + (qz.step + 1) + " de " + r.quiz.length + "</p><p class=\"kicker\">" + (q.kind === "tf" ? "Verdadero o falso" : "Opción múltiple") + "</p><div class=\"qbox\"><h1 style=\"font-size:clamp(1.45rem,4.5vw,2rem)\">" + esc(q.q) + "</h1><div class=\"opts\">" + opts + "</div>" + fb + "<div class=\"nav\">" + next + "<button type=\"button\" class=\"btn\" data-act=\"open-toc\">Módulos</button></div></div>";
+}
+function render() {
+  const app = document.getElementById("app");
+  const qz = state.rid && data[state.rid] ? data[state.rid].quiz : null;
+  const key = state.view + "|" + state.rid + "|" + state.mid + "|" + (qz ? (qz.finished ? "fin" : qz.step) : "");
+  const jump = key !== lastKey;
+  lastKey = key;
+  app.className = state.view === "cover" ? "wide" : "";
+  if (state.view === "cover") app.innerHTML = coverHTML();
+  else if (state.view === "toc") app.innerHTML = tocHTML();
+  else if (state.view === "mod") app.innerHTML = modHTML();
+  else if (state.view === "quiz") app.innerHTML = quizHTML();
+  if (jump) window.scrollTo(0, 0);
+  else {
+    const fb = document.getElementById("feedback");
+    if (fb) fb.scrollIntoView({ block: "nearest" });
+  }
+}
+function submitAct() {
+  const m = moduleOf();
+  const act = m.activity;
+  const rec = ensureAct(m.id);
+  if (rec.submitted) return;
+  rec.msg = "";
+  let ok = false;
+  if (act.kind === "choice") {
+    if (rec.picks.sel === undefined) { rec.msg = "Elige una opción antes de comprobar."; save(); render(); return; }
+    ok = rec.picks.sel === act.answer;
+  } else if (act.kind === "bins") {
+    const missing = act.items.some(function (it) { return rec.picks[it.id] === undefined || rec.picks[it.id] === ""; });
+    if (missing) { rec.msg = "Falta clasificar todas las ideas."; save(); render(); return; }
+    ok = act.items.every(function (it) { return Number(rec.picks[it.id]) === it.bin; });
+  } else if (act.kind === "match") {
+    const missing = act.rows.some(function (row) { return rec.picks[row.id] === undefined || rec.picks[row.id] === ""; });
+    if (missing) { rec.msg = "Falta unir todas las filas."; save(); render(); return; }
+    ok = act.rows.every(function (row) { return Number(rec.picks[row.id]) === row.answer; });
+  }
+  rec.submitted = true;
+  rec.ok = ok;
+  data[state.rid].done[m.id] = true;
+  save();
+  render();
+}
+document.body.addEventListener("click", function (e) {
+  const t = e.target.closest("[data-act]");
+  if (!t) return;
+  const act = t.dataset.act;
+  if (act === "theme") {
+    const cur = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    applyTheme(cur);
+    return;
+  }
+  if (act === "ask-reset") { document.getElementById("dialog").hidden = false; return; }
+  if (act === "cancel-reset") { document.getElementById("dialog").hidden = true; return; }
+  if (act === "do-reset") {
+    data = { l2: emptyReading(), l3: emptyReading() };
+    save();
+    state.view = "cover"; state.rid = null; state.mid = null;
+    document.getElementById("dialog").hidden = true;
+    render();
+    return;
+  }
+  if (act === "go-cover") { state.view = "cover"; state.rid = null; state.mid = null; render(); return; }
+  if (act === "open-reading") { state.rid = t.dataset.id; state.view = "toc"; state.mid = null; render(); return; }
+  if (act === "open-toc") { state.view = "toc"; state.mid = null; render(); return; }
+  if (act === "open-mod") { state.mid = t.dataset.id; state.view = "mod"; render(); return; }
+  if (act === "open-quiz") { state.view = "quiz"; state.mid = null; ensureQuiz(); render(); return; }
+  if (act === "pick-choice") {
+    const rec = ensureAct(state.mid);
+    if (rec.submitted) return;
+    rec.picks.sel = Number(t.dataset.i);
+    rec.msg = "";
+    save(); render(); return;
+  }
+  if (act === "pick-bin") {
+    const rec = ensureAct(state.mid);
+    if (rec.submitted) return;
+    rec.picks[t.dataset.item] = Number(t.dataset.bin);
+    rec.msg = "";
+    save(); render(); return;
+  }
+  if (act === "submit-act") { submitAct(); return; }
+  if (act === "quiz-pick") {
+    const qz = ensureQuiz();
+    if (qz.finished || qz.revealed[qz.step]) return;
+    qz.picks[qz.step] = Number(t.dataset.i);
+    qz.revealed[qz.step] = true;
+    save(); render(); return;
+  }
+  if (act === "quiz-next") {
+    const qz = ensureQuiz();
+    const r = reading();
+    if (!qz.revealed[qz.step]) return;
+    if (qz.step < r.quiz.length - 1) qz.step += 1;
+    else {
+      let s = 0;
+      r.quiz.forEach(function (q, i) { if (qz.picks[i] === q.answer) s += 1; });
+      qz.score = s;
+      qz.finished = true;
+    }
+    save(); render(); return;
+  }
+  if (act === "quiz-retry") {
+    data[state.rid].quiz = { step: 0, picks: {}, revealed: {}, finished: false, score: null };
+    save(); render();
+  }
+});
+document.body.addEventListener("change", function (e) {
+  const bin = e.target.closest("[data-bin-item]");
+  const match = e.target.closest("[data-match]");
+  if (!bin && !match) return;
+  const rec = ensureAct(state.mid);
+  if (rec.submitted) return;
+  if (bin) rec.picks[bin.dataset.binItem] = bin.value === "" ? "" : Number(bin.value);
+  if (match) rec.picks[match.dataset.match] = match.value === "" ? "" : Number(match.value);
+  rec.msg = "";
+  save();
+});
+initTheme();
+render();
+</script>
+</body>
+</html>
